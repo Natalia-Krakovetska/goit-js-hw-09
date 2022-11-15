@@ -28,6 +28,12 @@ const options = {
           
             return Notiflix.Notify.failure('Please choose a date in the future');
         } else{
+            Notiflix.Notify.success(
+                'Good choice!',
+                {
+                  timeout: 2000,
+                },
+              );
             refs.btnStart.disabled = false;           
             refs.btnStart.addEventListener('click', ()=>{
                 timer.start()
@@ -41,22 +47,29 @@ const fp = flatpickr(refs.input, options);
 
 const timer = {
     intervalId: null,
-    start(){    
+    start(){         
         this.intervalId = setInterval(()=>{
-        const currentTime =  Date.now();        
-           const delayTime = fp.selectedDates[0] - currentTime;     
-            
-           const timeComponents = convertMs(delayTime);
+        const currentTime =  Date.now();  
+           
+           let delayTime = fp.selectedDates[0] - currentTime;     
+            if(delayTime < 0) {
+                refs.daysTimer.textContent = "00";
+                refs.houresTimer.textContent = "00";
+                refs.minutesTimer.textContent = "00";
+                refs.secondsTimer.textContent = "00";
+                return;
+            }
+            const timeComponents = convertMs(delayTime);          
             refs.daysTimer.textContent = timeComponents.days;
             refs.houresTimer.textContent = timeComponents.hours;
             refs.minutesTimer.textContent = timeComponents.minutes;
             refs.secondsTimer.textContent = timeComponents.seconds;
-           if(delayTime < 1000){
+           
+           if(delayTime < 1000 ){
             clearInterval(this.intervalId);
             refs.btnStart.disabled = true;
-            return;
-           }
-          
+           }       
+        
         },1000);
       }
 }
