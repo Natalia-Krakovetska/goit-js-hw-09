@@ -19,14 +19,14 @@ function onBtnChangeColor(){
         refs.bodyEl.style.backgroundColor=getRandomHexColor();
     },DELAY);
    
-    refs.btnStart.setAttribute("disabled", "disabled");
-    refs.btnStop.removeAttribute("disabled", "disabled");
+    refs.btnStart.setAttribute("disabled", true);
+    refs.btnStop.removeAttribute("disabled");
 };
 function getRandomHexColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   };
   function onBtnStopChangeColor() {
         clearInterval(timerId);
-        refs.btnStart.removeAttribute("disabled", "disabled");
-        refs.btnStop.setAttribute("disabled", "disabled");
+        refs.btnStart.removeAttribute("disabled");
+        refs.btnStop.setAttribute("disabled", true);
   }
