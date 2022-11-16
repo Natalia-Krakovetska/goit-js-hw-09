@@ -4,11 +4,6 @@ const refs = {
     btnStop: document.querySelector('button[data-stop]'),
     text: document.querySelector('p')
 };
-
-
-console.log(refs.bodyEl);
-console.log(refs.btnStart);
-console.log(refs.btnStop);
 const DELAY = 1000;
 let timerId = null;
 refs.btnStart.addEventListener('click', onBtnChangeColor);
